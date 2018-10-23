@@ -6,3 +6,5 @@ runtime_config:
 
 manual_scaling:
   instances: 1
+
+HOST= https://web-app-jg.appspot.com
