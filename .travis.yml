@@ -46,5 +46,5 @@ after_script:
 
 deploy:
   provider: gae
-  keyfile: "web-app-jg.json"
+  keyfile: "super_secret.json"
   project: "web-app-jg"
