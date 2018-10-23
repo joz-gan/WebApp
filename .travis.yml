@@ -44,3 +44,7 @@ after_success:
 after_script:
 - chmod +x testing/test_cleanup.sh
 
+deploy:
+  provider: gae
+  keyfile: "web-app-jg.json"
+  project: "web-app-jg"
