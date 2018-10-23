@@ -26,6 +26,8 @@ env:
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
     - TEST_BUILD_DIR=${TRAVIS_BUILD_DIR}
     - FIREWALL_NAME=travis-job-${TRAVIS_JOB_ID}
+before_install:
+-openssl aes-256-cbc -K $encrypted_bb4a83262082_key -iv $encrypted_bb4a83262082_iv -in super_secret.json.enc -out super_secret.json -d
 
 install:
 - pecl install mongodb || phpenv config-add testing/mongodb.ini;
