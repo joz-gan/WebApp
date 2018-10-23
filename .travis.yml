@@ -1,0 +1,46 @@
+sudo: required
+
+language: php
+
+php:
+  - 7.1
+  - 7.2
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+branches:
+  only:
+    - master
+
+services:
+  - mongodb
+
+env:
+  global:
+    - GCLOUD_DIR=${HOME}/gcloud
+    - PATH=${HOME}/bin:${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
+    - GOOGLE_APPLICATION_CREDENTIALS=${TRAVIS_BUILD_DIR}/credentials.json
+    - CLOUDSDK_ACTIVE_CONFIG_NAME=getting-started-php
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - TEST_BUILD_DIR=${TRAVIS_BUILD_DIR}
+    - FIREWALL_NAME=travis-job-${TRAVIS_JOB_ID}
+
+install:
+- pecl install mongodb || phpenv config-add testing/mongodb.ini;
+
+before_script:
+- mkdir -p build/logs
+- ./cloud_sql_proxy -instances=$MYSQL_CONNECTION_NAME=tcp:3307 &
+- ./cloud_sql_proxy -instances=$POSTGRES_CONNECTION_NAME=tcp:5433 &
+
+script:
+- chmod +x testing/run_test_suite.sh
+
+after_success:
+- chmod +x testing/run_coveralls.sh
+
+after_script:
+- chmod +x testing/test_cleanup.sh
+
