@@ -21,7 +21,6 @@ services:
 before_install:
 - openssl aes-256-cbc -K $encrypted_d3b86bb7324d_key -iv $encrypted_d3b86bb7324d_iv -in super_secret.json.enc -out super_secret.json -d
 
-
 install:
 - pecl install mongodb || phpenv config-add testing/mongodb.ini;
 
