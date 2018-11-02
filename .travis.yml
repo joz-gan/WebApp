@@ -22,7 +22,7 @@ env:
     - GCLOUD_DIR=${HOME}/gcloud
     - PATH=${HOME}/bin:${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
     - GOOGLE_APPLICATION_CREDENTIALS=${TRAVIS_BUILD_DIR}/super_secret.txt
-    - CLOUDSDK_ACTIVE_CONFIG_NAME=getting-started-php
+    - CLOUDSDK_ACTIVE_CONFIG_NAME=web-app-jg
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
     - TEST_BUILD_DIR=${TRAVIS_BUILD_DIR}
     - FIREWALL_NAME=travis-job-${TRAVIS_JOB_ID}
@@ -47,6 +47,6 @@ after_script:
 
 deploy:
   provider: gae
-  keyfile: super_secret.txt
+  keyfile: super_secret.txt.enc
   project: web-app-jg
   config: app.yaml
